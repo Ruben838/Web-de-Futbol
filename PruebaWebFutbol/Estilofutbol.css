@@ -1,0 +1,174 @@
+body {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: #e0f7fa;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+h1 {
+    font-size: 3.5em;
+    text-align: center;
+    color: #003366;
+    margin-top: 20px;
+    text-shadow: 3px 3px 5px #888;
+}
+
+h2 {
+    font-size: 3em;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    background-color: #006064;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin: 0 20px;
+}
+
+nav ul li a {
+    font-size: 1.5em;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #004d40;
+}
+
+section {
+    padding: 50px 0;
+    text-align: center;
+    margin: 0 20px;
+}
+
+
+#equipos {
+    background-color: #81c784;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    margin-bottom: 40px;
+}
+
+#equipos-list p {
+    font-size: 1.5em;
+    color: #004d40;
+    margin: 10px 0;
+}
+
+
+#clasificacion {
+    background-color: #4db6ac;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    margin-bottom: 40px;
+}
+
+table {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    font-size: 1.2em;
+}
+
+table th, table td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #00796b;
+    color: white;
+}
+
+table td {
+    background-color: #e0f2f1;
+}
+
+table tr:hover {
+    background-color: #b2dfdb;
+}
+
+
+#resultados {
+    background-color: #80cbc4;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    margin-bottom: 40px;
+}
+
+#resultados-list p {
+    font-size: 1.5em;
+    color: #004d40;
+    margin: 10px 0;
+}
+
+
+#jugador {
+    background-color: #aed581;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+#jugadores-list p {
+    font-size: 1.5em;
+    color: #004d40;
+    margin: 10px 0;
+}
+
+
+@media (max-width: 768px) {
+    nav ul li a {
+        font-size: 1.2em;
+        padding: 8px 15px;
+    }
+
+    h1 {
+        font-size: 2.5em;
+    }
+
+    table, #equipos-list p, #resultados-list p, #jugadores-list p {
+        font-size: 1.2em;
+    }
+}
+
+@media (max-width: 480px) {
+    nav ul {
+        flex-direction: column;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    table th, table td {
+        padding: 10px;
+    }
+}
