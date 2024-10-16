@@ -66,7 +66,7 @@
 
   <script>
     const baseUrl = "https://api.football-data.org/v4";
-    const apiKey = "59d28611aa7d4909a4ba455c0c435a77";
+    const apiKey = "10604bd89e244729bd887299f18c6308";
 
     function fetchData(endpoint, callback) {
       $.ajax({
@@ -93,7 +93,7 @@
       fetchData("/competitions/PL/standings", function (data) {
         const standingsTable = $("#clasificacion-list tbody");
         standingsTable.empty();
-        data.standings[0].table.forEach(function (team, index) {
+        data.standings[0].table.forEach(function (team) {
           standingsTable.append(`
             <tr>
               <td>${team.position}</td>
@@ -126,25 +126,22 @@
         });
       });
     }
-
     function fetchPlayersByTeam() {
-      const teamIds = [64, 65, 66]; // Ejemplo de IDs de equipos
-      const jugadoresTable = $("#jugadores-list-equipos tbody");
-      jugadoresTable.empty();
-
-      teamIds.forEach(teamId => {
-        fetchData(`/teams/${teamId}`, function (data) {
-          const teamName = data.name;
-          data.squad.forEach(function (player) {
-            if (player.role === "PLAYER") {
-              jugadoresTable.append(`
-                <tr>
-                  <td>${teamName}</td>
-                  <td>${player.name}</td>
-                  <td>${player.position}</td>
-                </tr>
-              `);
-            }
+      fetchData("/competitions/PL/teams", function (data) {
+        const teamsDiv = $("#jugadores-list-equipos tbody");
+        teamsDiv.empty();
+        data.teams.forEach(function (team) {
+          fetchData(`/teams/${team.id}`, function (teamData) {
+            let playersList = teamData.squad
+              .map(player => player.name)
+              .join(", ");
+            
+            teamsDiv.append(`
+              <tr>
+                <td>${team.name}</td>
+                <td>${playersList}</td>
+              </tr>
+            `);
           });
         });
       });
