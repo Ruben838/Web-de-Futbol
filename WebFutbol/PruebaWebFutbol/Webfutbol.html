@@ -19,6 +19,17 @@
   <div id="equipos" class="dissenyequips">
     <h2 style="font-size: 3em;">Equipos de la Liga</h2>
     <div id="equipos-list"></div>
+    <table id="equipos-list">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Escudo</th>      
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    
   </div>
 
   <div id="clasificacion" class="dissenyclasificacio">
@@ -45,6 +56,10 @@
     <h2 style="font-size: 3em;">Jugadores Destacados</h2>
     <div id="jugadores-list"></div>
   </div>
+  <div id="nuevo" class="disseny">
+    <h2 style="font-size: 3em;">Jugadores </h2>
+    <div id="nuevo-list"></div>
+  </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
@@ -65,10 +80,17 @@
 
     function fetchTeams() {
       fetchData("/competitions/PL/teams", function (data) {
-        const teamsDiv = $("#equipos-list");
+        const teamsDiv = $("#equipos-list tbody");
         teamsDiv.empty();
         data.teams.forEach(function (team) {
-          teamsDiv.append(`<p>${team.name}</p>`);
+         
+          teamsDiv.append(`
+          <tr>
+              <td>${team.name}</td>
+              <td> <img src= "${team.crest}"/> </td>
+              
+            </tr>
+          `);
         });
       });
     }
@@ -100,17 +122,16 @@
     }
 
     function fetchPlayers() {
+  fetchData("/competitions/PL/scorers", function (data) {
+    const scoreDiv = $("#jugadores-list");
+    scoreDiv.empty();
+    data.scorers.forEach(function (scorer) {
+      scoreDiv.append(`<p>${scorer.player.name} - ${scorer.team.name} - ${scorer.goals}</p>`);
+    });
+  });
+}
 
-      fetchData("/teams/64", function (data) {
-        const playersDiv = $("#jugadores-list");
-        playersDiv.empty();
-        data.squad.forEach(function (player) {
-          if (player.role === "PLAYER") {
-            playersDiv.append(`<p>${player.name} - ${player.position}</p>`);
-          }
-        });
-      });
-    }
+  
 
     $(document).ready(function () {
       fetchTeams();

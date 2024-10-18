@@ -18,8 +18,18 @@
   </nav>
 
   <div id="equipos" class="dissenyequips">
-    <h2 style="font-size: 3em;">Equipos de la Liga</h2>
+    <h2 style="font-size: 3em;">Equipos de la Primere League</h2>
     <div id="equipos-list"></div>
+    <table id="equipos-list">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Escudo</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
   </div>
 
   <div id="clasificacion" class="dissenyclasificacio">
@@ -45,6 +55,17 @@
   <div id="jugador" class="dissenyjugador">
     <h2 style="font-size: 3em;">Jugadores Destacados</h2>
     <div id="jugadores-list"></div>
+    <table id="jugadores-list">
+      <thead>
+        <tr>
+          <th>Goles</th>
+          <th>Nombre</th>
+          <th>Equipos</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
   </div>
 
   <!-- Nueva sección para Jugadores de cada equipo -->
@@ -81,10 +102,17 @@
 
     function fetchTeams() {
       fetchData("/competitions/PL/teams", function (data) {
-        const teamsDiv = $("#equipos-list");
+        const teamsDiv = $("#equipos-list tbody");
         teamsDiv.empty();
         data.teams.forEach(function (team) {
-          teamsDiv.append(`<p>${team.name}</p>`);
+
+          teamsDiv.append(`
+          <tr>
+              <td>${team.name}</td>
+              <td> <img src= "${team.crest}"/> </td>
+              
+            </tr>
+          `);
         });
       });
     }
@@ -116,14 +144,18 @@
     }
 
     function fetchPlayers() {
-      fetchData("/teams/64", function (data) {
-        const playersDiv = $("#jugadores-list");
-        playersDiv.empty();
-        data.squad.forEach(function (player) {
-          if (player.role === "PLAYER") {
-            playersDiv.append(`<p>${player.name} - ${player.position}</p>`);
-          }
-        });
+      fetchData("/competitions/PL/scorers", function (data) {
+        const scoreDiv = $("#jugadores-list tbody");
+        scoreDiv.empty();
+        data.scorers.forEach(function (scorer) {
+        scoreDiv.append(` 
+        <tr>
+              <td>${scorer.goals}</td>
+              <td>${scorer.player.name}</td>
+              <td>${scorer.team.name}</td>
+            </tr>`);
+          });
+
       });
     }
     function fetchPlayersByTeam() {
@@ -135,7 +167,7 @@
             let playersList = teamData.squad
               .map(player => player.name)
               .join(", ");
-            
+
             teamsDiv.append(`
               <tr>
                 <td>${team.name}</td>
@@ -152,7 +184,7 @@
       fetchStandings();
       fetchResults();
       fetchPlayers();
-      fetchPlayersByTeam(); 
+      fetchPlayersByTeam();
     });
   </script>
 

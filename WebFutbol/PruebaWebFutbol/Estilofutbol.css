@@ -2,7 +2,7 @@ body {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     background-color: #e0f7fa;
     margin: 0;
-    padding: 0;
+   padding: 0;
     color: #333;
 }
 
@@ -115,10 +115,11 @@ table tr:hover {
     margin-bottom: 40px;
 }
 
+
 #resultados-list p {
     font-size: 1.5em;
     color: #004d40;
-    margin: 10px 0;
+    margin: 50px 0;
 }
 
 
