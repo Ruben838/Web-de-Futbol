@@ -18,7 +18,7 @@
   </nav>
 
   <div id="equipos" class="dissenyequips">
-    <h2 style="font-size: 3em;">Equipos de la Primere League</h2>
+    <h2 style="font-size: 3em;">Equipos de la Premiere League</h2>
     <div id="equipos-list"></div>
     <table id="equipos-list">
       <thead>
@@ -134,11 +134,14 @@
     }
 
     function fetchResults() {
-      fetchData("/competitions/PL/matches?status=FINISHED", function (data) {
-        const resultsDiv = $("#resultados-list");
-        resultsDiv.empty();
-        data.matches.forEach(function (match) {
-          resultsDiv.append(`<p>${match.homeTeam.name} ${match.score.fullTime.homeTeam} - ${match.score.fullTime.awayTeam} ${match.awayTeam.name}</p>`);
+      fetchData("/competitions/PL", function (seasonData) {
+        const currentMatchday = seasonData.currentSeason.currentMatchday - 1;
+        fetchData("/competitions/PL/matches?matchday="+currentMatchday, function (data) {
+          const resultsDiv = $("#resultados-list");
+          resultsDiv.empty();
+          data.matches.forEach(function (match) {
+            resultsDiv.append(`<p>${match.homeTeam.name} ${match.score.fullTime.home} - ${match.score.fullTime.away} ${match.awayTeam.name}</p>`);
+          });
         });
       });
     }
@@ -148,13 +151,13 @@
         const scoreDiv = $("#jugadores-list tbody");
         scoreDiv.empty();
         data.scorers.forEach(function (scorer) {
-        scoreDiv.append(` 
+          scoreDiv.append(` 
         <tr>
               <td>${scorer.goals}</td>
               <td>${scorer.player.name}</td>
               <td>${scorer.team.name}</td>
             </tr>`);
-          });
+        });
 
       });
     }
